@@ -6,6 +6,17 @@ z = 0
 facing = 1 -- 1: Forward, 2: Right, 3: Backwards, 4: Left
 
 -- Functions
+local fucntion printHeader()
+    print("-------------------------------")
+    print("      ExavateStream 4031")
+    print(" A DriftStream product 2025 TM")
+    print("-------------------------------")
+end
+
+local function getInput(prompt)
+    print(prompt)
+end
+
 local function turnToFace(targetDirection)
     while (direction ~= targetDirection) 
     do
@@ -19,6 +30,10 @@ local function turnToFace(targetDirection)
             direction = direction + 1
         end
     end
+end
+
+local fucntion printLocation()
+    print("Current Possition: X: " ..x.. " Y: " ..y.. " Z: " ..z.. " facing: " ..direction[facing])
 end
 
 local function digMoveForward()
@@ -51,3 +66,5 @@ local function moveUp()
 end
 
 -- Main code
+
+printHeader
