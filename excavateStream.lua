@@ -67,4 +67,8 @@ end
 
 -- Main code
 
-printHeader
+printHeader()
+printLocation()
+moveUp()
+printLocation()
+digMoveForward()
