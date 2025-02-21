@@ -48,6 +48,12 @@ local function turnToFace(targetDirection)
     end
 end
 
+function logPosition()
+    local file = fs.open("log.txt", "a")  -- Open file in append mode
+    file.writeLine("X: " .. x .. " | Y: " .. y .. " | Z: " .. z .. " | Facing: " ..direction[facing])
+    file.close()
+end
+
 local fucntion printLocation()
     print("Current Possition: X: " ..x.. " Y: " ..y.. " Z: " ..z.. " facing: " ..direction[facing])
 end
@@ -70,7 +76,7 @@ local function digMoveForward()
     then
         x = x - 1
     end
-    printLocation()
+    logPosition()
 end
 
 local function moveUp()
