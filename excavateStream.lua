@@ -18,12 +18,14 @@ end
 
 local function getInput(prompt)
     local input
-    while true do
+    while true 
+    do
         term.write(prompt .. " ")  -- Display the prompt
         input = read()  -- Read user input
 
         local number = tonumber(input)  -- Convert to number
-        if number and math.floor(number) == number then
+        if number and math.floor(number) == number 
+        then
             return number  -- Return valid integer
         else
             print("Invalid input. Please enter a whole number.")
