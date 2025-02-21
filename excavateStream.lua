@@ -68,6 +68,7 @@ local function digMoveForward()
     then
         x = x - 1
     end
+    printLocation()
 end
 
 local function moveUp()
@@ -127,12 +128,45 @@ local function moveToOrigin()
     turnToFace(1)
 end
 
+local function excavationLoop(height,width,depth)
+    for layer = 1, height 
+    do
+        for row = 1, width 
+        do
+            for col = 1, depth - 1 
+            do
+                digMoveForward()
+            end
+    
+            if row < width 
+            then
+                if row % 2 == 1 
+                then
+                    turnToFace(2)
+                    digMoveForward()
+                    turnToFace(3)
+                else
+                    turnToFace(4)
+                    digMoveForward()
+                    turnToFace(1)
+                end
+            end
+        end
+    end
+end
+
 -- Main code
 printHeader()
 printLocation()
+print("Calibrating Turtle...")
 moveUp()
 printLocation()
 digMoveForward()
 printLocation()
 moveToOrigin()
 printLocation()
+print("Calibrated")
+width = getInput("Enter Width: ")
+depth = getInput("Enter Depth: ")
+height = getInput("Enter Height: ")
+excavationLoop(height,width,depth)
