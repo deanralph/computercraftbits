@@ -167,6 +167,13 @@ digMoveForward()
 printLocation()
 moveToOrigin()
 printLocation()
+if x == 0 and y == 0 and z == 0 and facing == 1 
+then
+    print("Calibrated")
+else
+    print("Unable to calibrate turtle. Ending program")
+    exit()
+end
 print("Calibrated")
 width = getInput("Enter Width: ")
 depth = getInput("Enter Depth: ")
