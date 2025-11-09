@@ -54,8 +54,10 @@ function dumpInventory(origin):
 end     
 
 function digForwards()
-    if turtle.dig() then
-        blocksMined = blocksMined + 1
+    while turtle.detect() do
+        if turtle.dig() then
+            blocksMined = blocksMined + 1
+        end
     end
     if turtle.forward() then
         if xyzd["d"] == 1 then
@@ -67,11 +69,40 @@ function digForwards()
         elseif xyzd["d"] == 4 then
             xyzd["y"] = xyzd["y"] - 1
         end
-        return True
-    else
-        return False
     end
+    logPosition()
     drawHeader()
+end
+
+function moveUp()
+    while turtle.detectUp() do
+        turtle.digUp()
+    end
+    turtle.up()
+    xyzd["z"] = xyzd["z"] + 1
+end
+
+function moveDown()
+    while turtle.detectDown() do
+        turtle.digDown()
+    end
+    turtle.down()
+    xyzd["z"] = xyzd["z"] - 1
+end
+
+function moveToOrigin()
+    if x > 1 then
+        turnToFace(4)
+        for _ = 1, x do 
+            digForwards() 
+        end
+    end
+    if y > 1 then
+        turnToFace(3)
+        for _ = 1, y do 
+            digForwards()
+        end
+    turnToFace(1)
 end
 
 function drawHeader()
@@ -93,8 +124,34 @@ function checkFuelLevel()
 end
 
 function digLine(leng)
-    for i = 1, length - 1 do
+    for i = 1, leng - 1 do
         digForwards()
+    end
+end
+
+function logPosition()
+    local file = fs.open("log.txt", "a")  -- Open file in append mode
+    file.writeLine("X: " .. xyzd["x"] .. " | Y: " .. xyzd["y" .. " | Z: " .. xyzd["z" .. " | Facing: " .. xyzd["d"]")
+    file.close()
+end
+
+function excavationLoop(height,width,depth)
+    for layer = 1, height do
+        for row = 1, width do
+            digLine(depth - 1)
+    
+            if row < width then
+                if row % 2 == 1 then
+                    turnToFace(2)
+                    digMoveForward()
+                    turnToFace(3)
+                else
+                    turnToFace(4)
+                    digMoveForward()
+                    turnToFace(1)
+                end
+            end
+        end
     end
 end
 
