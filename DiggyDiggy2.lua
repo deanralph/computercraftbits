@@ -6,6 +6,10 @@ xyzd = { -- x y z relatie to point of origin
     d = 1 -- direction relative to point of origin 1 = forward, 2 = left, 3 = backwards, 4 = right
 }
 
+if not (width and length and height) then
+    error("Usage: turtle_program <width> <length> <height>")
+end
+
 blocksMined = 0
 args = { ... }
 width  = tonumber(args[1])
@@ -93,16 +97,16 @@ end
 
 function digLayer(reverse)
     for row = 1, width do
-        digLine(length - 1)
+        digLine()
         if row < width then
             if row % 2 == 1 then
-                turnToFace(4,reverse)
-                digMoveForward()
-                turnToFace(3)
+                turnTurtle(4,reverse)
+                digForwards()
+                turnTurtle(3)
             else
-                turnToFace(2,reverse)
-                digMoveForward()
-                turnToFace(1)
+                turnTurtle(2,reverse)
+                digForwards()
+                turnTurtle(1)
             end
         end
     end
@@ -147,9 +151,9 @@ end
 function excavationLoop()
     for layer = 1, height do
         if layer %2 == 1 then
-            rev = true
+            local rev = true
         else 
-            rev = false
+            local rev = false
         end
         digLayer(rev)
         if layer ~= height then
@@ -161,13 +165,8 @@ end
 
 -- Main
 drawHeader()
-if not (width and length and height) then
-    print("Usage: turtle_program <width> <length> <height>")
-    exit()
-end
 if turtle.getFuelLevel() < totalblocks then
-    print("Fuel Estimate too low, refuel and try again...")
-    exit()
+    error("Fuel Estimate too low, refuel and try again...")
 end
 
 excavationLoop()
