@@ -7,6 +7,7 @@ xyzd = { -- x y z relatie to point of origin
 }
 
 blocksMined = 0
+args = { ... }
 width  = tonumber(args[1])
 length = tonumber(args[2])
 height = tonumber(args[3])
